@@ -1,4 +1,5 @@
 require "active_job_log/engine"
+require "enumerize"
 
 module ActiveJobLog
   extend self
