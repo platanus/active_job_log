@@ -15,6 +15,38 @@ module ActiveJobLog
     before_save :set_execution_duration
     before_save :set_total_duration
 
+    def self.update_job!(job_id, status, params = {})
+      params.merge!(status_to_params(status))
+      job = Job.find_or_create_by(job_id: job_id)
+      job.update_attributes!(params)
+      job
+    end
+
+    class << self
+      private
+
+      def status_to_params(status)
+        time_attr = infer_duration_attr_from_status(status)
+        {
+          time_attr => DateTime.current,
+          status: status
+        }
+      end
+
+      def infer_duration_attr_from_status(status)
+        case status
+        when :queued
+          :queued_at
+        when :pending
+          :started_at
+        when :finished, :failed
+          :ended_at
+        else
+          fail "invalid status"
+        end
+      end
+    end
+
     private
 
     def set_queued_duration
