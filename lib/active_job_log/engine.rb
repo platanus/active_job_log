@@ -8,8 +8,7 @@ module ActiveJobLog
     end
 
     initializer "initialize" do
-      # Require here all your engine's classes.
-      require_relative "./example_class"
+      require_relative "./log_ext"
     end
   end
 end
