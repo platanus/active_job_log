@@ -105,7 +105,7 @@ class MyJob < ActiveJob::Base
     # ...
   end
 
-  rescue_from(StandardError) do |exception|
+  rescue_from(Exception) do |exception|
     # ...
     fail_job(exception) #=> you need to call this method.
   end
