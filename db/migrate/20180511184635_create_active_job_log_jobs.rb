@@ -13,6 +13,8 @@ class CreateActiveJobLogJobs < ActiveRecord::Migration[5.2]
       t.integer :queued_duration
       t.integer :execution_duration
       t.integer :total_duration
+      t.integer :executions
+      t.string :queue_name
 
       t.timestamps
     end

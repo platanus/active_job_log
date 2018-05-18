@@ -44,7 +44,7 @@ you will get:
 job = ActiveJobLog::Job.last
 job.job_id #=> "0ca5075e-c601-45a1-9bbe-147b4d3d5391"
 job.params #=> ["p1", "p2"]
-job.status #=> nil
+job.status #=> "finished"
 job.job_class #=> "MyJob"
 job.error #=> nil
 job.stack_trace #=> nil
@@ -54,6 +54,8 @@ job.ended_at #=> Sat, 12 May 2018 20:30:00 UTC +00:00
 job.queued_duration #=> 5
 job.execution_duration #=> 10
 job.total_duration #=> 15
+job.queue_name #=> "default"
+job.executions #=> 0
 ```
 
 ### Attributes
@@ -88,6 +90,10 @@ queued pending finished failed
 - `execution_duration`: seconds that the execution lasted.
 
 - `total_duration`: queued_duration + execution_duration.
+
+- `queue_name `: job's queue name.
+
+- `executions `: number of times this job has been executed (which increments on every retry, like after an exception.
 
 ### Important
 
