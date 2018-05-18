@@ -6,7 +6,11 @@ module ActiveJobLog
       before_enqueue { |job| enqueue_job(job) }
       before_perform { |job| execute_job(job) }
       after_perform { |job| finish_job(job) }
-      rescue_from(RuntimeError) { |exception| fail_job(exception) }
+
+      rescue_from(Exception) do |exception|
+        fail_job(exception)
+        raise exception
+      end
 
       def enqueue_job(job)
         Job.update_job!(job.job_id, :queued, init_params(job))
