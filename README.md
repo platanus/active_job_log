@@ -1,5 +1,9 @@
 # Active Job Log
 
+[![Gem Version](https://badge.fury.io/rb/active_job_log.svg)](https://badge.fury.io/rb/active_job_log)
+[![Build Status](https://travis-ci.org/platanus/active_job_log.svg?branch=master)](https://travis-ci.org/platanus/active_job_log)
+[![Coverage Status](https://coveralls.io/repos/github/platanus/active_job_log/badge.svg?branch=master)](https://coveralls.io/github/platanus/active_job_log?branch=master)
+
 Rails engine to register jobs history, adding: job state, error feedback, duration, etc.
 
 ## Installation
