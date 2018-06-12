@@ -17,13 +17,17 @@ module ActiveJobLog
 
     def self.update_job!(job_id, status, params = {})
       params.merge!(status_to_params(status))
-      job = Job.find_or_create_by(job_id: job_id)
+      job = find_or_create_job(job_id)
       job.update_attributes!(params)
       job
     end
 
     class << self
       private
+
+      def find_or_create_job(job_id)
+        Job.where(job_id: job_id).where.not(status: :failed).last || Job.create(job_id: job_id)
+      end
 
       def status_to_params(status)
         time_attr = infer_duration_attr_from_status(status)
