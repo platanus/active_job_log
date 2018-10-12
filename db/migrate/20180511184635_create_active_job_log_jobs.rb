@@ -5,7 +5,7 @@ class CreateActiveJobLogJobs < ActiveRecord::Migration[5.2]
       t.text :params
       t.string :status
       t.string :job_class
-      t.string :error
+      t.text :error
       t.text :stack_trace
       t.datetime :queued_at
       t.datetime :started_at
