@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_05_11_184635) do
     t.text "params"
     t.string "status"
     t.string "job_class"
-    t.string "error"
+    t.text "error"
     t.text "stack_trace"
     t.datetime "queued_at"
     t.datetime "started_at"
