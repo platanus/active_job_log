@@ -9,6 +9,7 @@ module ActiveJobLog
 
     initializer "initialize" do
       require_relative "./log_ext"
+      require_relative "./loggeable"
     end
   end
 end
