@@ -13,6 +13,10 @@ class ActiveJobLog::InstallGenerator < Rails::Generators::Base
     end
   end
 
+  def copy_job_model
+    copy_file "job_model.rb", "app/models/active_job_log/job.rb"
+  end
+
   def copy_engine_migrations
     rake "railties:install:migrations"
   end
