@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_job_log (0.2.1)
+    active_job_log (1.0.0)
       enumerize (>= 1.0)
       rails (>= 4.2.0)
 
@@ -99,7 +99,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.13)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
