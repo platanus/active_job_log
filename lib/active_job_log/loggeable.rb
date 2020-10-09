@@ -39,7 +39,7 @@ module ActiveJobLog
       def update_job!(job_id, status, params = {})
         params.merge!(status_to_params(status))
         job = find_or_create_job(job_id)
-        job.update_attributes!(params)
+        job.update!(params)
         job
       end
 
