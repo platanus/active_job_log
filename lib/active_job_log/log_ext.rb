@@ -40,4 +40,4 @@ module ActiveJobLog
   end
 end
 
-ActiveJob::Base.send(:include, ActiveJobLog::LogExt)
+ActiveJob::Base.include ActiveJobLog::LogExt

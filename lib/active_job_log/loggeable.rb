@@ -2,10 +2,10 @@ module ActiveJobLog
   module Loggeable
     extend ActiveSupport::Concern
 
+    STATUSES = %i{queued pending finished failed}
+
     included do
       extend Enumerize
-
-      STATUSES = %i{queued pending finished failed}
 
       validates :job_id, presence: true
 
@@ -20,17 +20,20 @@ module ActiveJobLog
 
       def set_queued_duration
         return if queued_at.blank? || started_at.blank?
+
         self.queued_duration = (started_at.to_f - queued_at.to_f).to_i
       end
 
       def set_execution_duration
         return if started_at.blank? || ended_at.blank?
+
         self.execution_duration = (ended_at.to_f - started_at.to_f).to_i
       end
 
       def set_total_duration
         from = queued_at || started_at
         return if from.blank? || ended_at.blank?
+
         self.total_duration = (ended_at.to_f - from.to_f).to_i
       end
     end

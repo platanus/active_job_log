@@ -1,7 +1,7 @@
 # Active Job Log
 
 [![Gem Version](https://badge.fury.io/rb/active_job_log.svg)](https://badge.fury.io/rb/active_job_log)
-[![Build Status](https://travis-ci.org/platanus/active_job_log.svg?branch=master)](https://travis-ci.org/platanus/active_job_log)
+[![CircleCI](https://circleci.com/gh/platanus/active_job_log.svg?style=shield)](https://app.circleci.com/pipelines/github/platanus/active_job_log)
 [![Coverage Status](https://coveralls.io/repos/github/platanus/active_job_log/badge.svg?branch=master)](https://coveralls.io/github/platanus/active_job_log?branch=master)
 
 Rails engine to register jobs history, adding: job state, error feedback, duration, etc.
@@ -95,9 +95,9 @@ queued pending finished failed
 
 - `total_duration`: queued_duration + execution_duration.
 
-- `queue_name `: job's queue name.
+- `queue_name`: job's queue name.
 
-- `executions `: number of times this job has been executed (which increments on every retry, like after an exception.
+- `executions`: number of times this job has been executed (which increments on every retry, like after an exception.
 
 ### Important
 
@@ -144,4 +144,4 @@ Active Job Log is maintained by [platanus](http://platan.us).
 
 ## License
 
-Active Job Log is © 2018 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
+Active Job Log is © 2021 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
