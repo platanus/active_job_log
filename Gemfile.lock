@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_job_log (1.2.0)
+    active_job_log (2.0.0)
       enumerize (>= 1.0)
       rails (>= 6.0)
 
