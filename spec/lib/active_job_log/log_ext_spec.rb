@@ -14,10 +14,7 @@ RSpec.describe ActiveJobLog::LogExt do
   end
 
   let(:job_params) do
-    [
-      "p1",
-      "p2"
-    ]
+    %w{p1 p2}
   end
 
   before { remove_job_class }
@@ -50,7 +47,7 @@ RSpec.describe ActiveJobLog::LogExt do
     it { expect(@job.queued_duration).to be_nil }
     it { expect(@job.execution_duration).not_to be_nil }
     it { expect(@job.total_duration).not_to be_nil }
-    it { expect(@job.executions).to eq(0) }
+    it { expect(@job.executions).to eq(1) }
   end
 
   context "with failed job" do
@@ -79,6 +76,6 @@ RSpec.describe ActiveJobLog::LogExt do
     it { expect(@job.queued_duration).to be_nil }
     it { expect(@job.execution_duration).not_to be_nil }
     it { expect(@job.total_duration).not_to be_nil }
-    it { expect(@job.executions).to eq(0) }
+    it { expect(@job.executions).to eq(1) }
   end
 end
