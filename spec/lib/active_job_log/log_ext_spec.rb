@@ -1,15 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ActiveJobLog::LogExt do
-  def remove_job_class
-    Object.send(:remove_const, :TestJob)
-  rescue
-    nil
-  end
-
-  def perform_now
-    TestJob.perform_now(*job_params)
-  rescue
+  def perform_now(job_class)
+    job_class.perform_now(*job_params)
+  rescue StandardError
     nil
   end
 
@@ -17,19 +11,21 @@ RSpec.describe ActiveJobLog::LogExt do
     %w{p1 p2}
   end
 
-  before { remove_job_class }
-
   it { expect(ActiveJobLog::Job.count).to eq(0) }
 
   context "with successful job" do
-    before do
-      class TestJob < ActiveJob::Base
+    let(:job_class) do
+      klass = Class.new(ApplicationJob) do
         def perform(param1, param2)
           "success with #{param1} and #{param2}"
         end
       end
 
-      perform_now
+      stub_const('TestJob', klass)
+    end
+
+    before do
+      perform_now(job_class)
       @job = ActiveJobLog::Job.last
     end
 
@@ -51,14 +47,18 @@ RSpec.describe ActiveJobLog::LogExt do
   end
 
   context "with failed job" do
-    before do
-      class TestJob < ActiveJob::Base
+    let(:job_class) do
+      klass = Class.new(ApplicationJob) do
         def perform(_param1, _param2)
           raise "error"
         end
       end
 
-      perform_now
+      stub_const('TestJob', klass)
+    end
+
+    before do
+      perform_now(job_class)
       @job = ActiveJobLog::Job.last
     end
 
@@ -77,5 +77,38 @@ RSpec.describe ActiveJobLog::LogExt do
     it { expect(@job.execution_duration).not_to be_nil }
     it { expect(@job.total_duration).not_to be_nil }
     it { expect(@job.executions).to eq(1) }
+  end
+
+  context "with disabled jobs" do
+    let(:disabled_job_class) do
+      klass = Class.new(ApplicationJob) do
+        disable_job_logs
+
+        def perform(_param1, _param2)
+          # ...
+        end
+      end
+
+      stub_const('DisabledTestJob', klass)
+    end
+
+    let(:enabled_job_class) do
+      klass = Class.new(ApplicationJob) do
+        def perform(_param1, _param2)
+          # ...
+        end
+      end
+
+      stub_const('EnabledTestJob', klass)
+    end
+
+    before do
+      perform_now(disabled_job_class)
+      perform_now(enabled_job_class)
+      @job = ActiveJobLog::Job.last
+    end
+
+    it { expect(ActiveJobLog::Job.count).to eq(1) }
+    it { expect(@job.job_class).to eq('EnabledTestJob') }
   end
 end

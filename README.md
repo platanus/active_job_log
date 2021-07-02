@@ -99,6 +99,20 @@ queued pending finished failed
 
 - `executions`: number of times this job has been executed (which increments on every retry, like after an exception.
 
+### Disable logging
+
+If you want to avoid logging a specific job you have to add `disable_job_logs` config option on that job. For example:
+
+```ruby
+class MyJob < ActiveJob::Base
+  disable_job_logs
+
+  def perform(param1, param2)
+    # ...
+  end
+end
+```
+
 ### Important
 
 If your job calls the `rescue_from` method, you will need to call the `fail_job` method explicitly to log the job completion. For example:
