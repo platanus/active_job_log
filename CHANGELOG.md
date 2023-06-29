@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### Unreleased
+
+#### Changed
+
+* Add Ruby 3.2 support
+* Remove Ruby 2.5 and 2.6 support
+
 ### v2.1.0
 
 #### Added
