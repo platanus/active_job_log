@@ -25,6 +25,7 @@ require "pry"
 require "spec_helper"
 require "rspec/rails"
 require "factory_bot_rails"
+require "enumerize/integrations/rspec"
 
 ActiveRecord::Migration.maintain_test_schema!
 
