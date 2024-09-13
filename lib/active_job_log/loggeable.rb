@@ -11,8 +11,8 @@ module ActiveJobLog
 
       enumerize :status, in: STATUSES, scope: true
 
-      serialize :params, Array
-      serialize :stack_trace, Array
+      serialize :params, coder: JSON, type: Array
+      serialize :stack_trace, coder: JSON, type: Array
 
       before_save :set_queued_duration
       before_save :set_execution_duration
